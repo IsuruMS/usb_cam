@@ -393,8 +393,9 @@ int UsbCam::init_mjpeg_decoder(int image_width, int image_height)
   avcodec_context_->pix_fmt = AV_PIX_FMT_YUV422P;
   avcodec_context_->codec_type = AVMEDIA_TYPE_VIDEO;
 #endif
-
-  avframe_camera_size_ = avpicture_get_size(AV_PIX_FMT_YUV422P, image_width, image_height);
+	// the code was changed from AV_PIX_FMT_YUV422P to AV_PIX_FMT_YUV420P
+	// to avoid the output buf mismatch error
+  avframe_camera_size_ = avpicture_get_size(AV_PIX_FMT_YUV420P, image_width, image_height);
   avframe_rgb_size_ = avpicture_get_size(AV_PIX_FMT_RGB24, image_width, image_height);
 
   /* open it */
